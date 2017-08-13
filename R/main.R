@@ -1,7 +1,7 @@
 library(magrittr)
 
 #Load the whole database (5 years) as provided by https://www.kaggle.com/camnugent/sandp500
-data('SP500_base.Rda', envir=environment())
+data('SP500_base.rda', package= 'SP500R', envir=environment())
 
 
 #' Return stocks' names

@@ -3,8 +3,8 @@ Type: Package
 Title: Easy loading of SP500 stocks data
 Version: 0.1.0
 Author: Pierre Foret
-Maintainer: Pierre Foret <Pierre.foret@ensae.fr>
-Description: Allows the user to load SP500 stocks data as data frame or time series
+Description: Allows the user to load SP500 stocks data as data frame or time series. 
+Maintainer: Pierre Foret <Pierre.foret@ENSAE-PAristech.fr>
 License: MIT
 Encoding: UTF-8
 Imports: magrittr, dplyr, lubridate

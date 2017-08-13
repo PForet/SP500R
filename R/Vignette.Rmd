@@ -18,7 +18,7 @@ This package relies on the data provided on Kaggle : see https://www.kaggle.com/
 
 This package allows the user to load the whole dataframe. 'Date' variable has been defined as a Date object, using the 'lubridate' package 
 ```{r whole}
-source("main.R")
+library(SP500R)
 whole_dataframe <- all_stocks()
 head(whole_dataframe)
 ```
