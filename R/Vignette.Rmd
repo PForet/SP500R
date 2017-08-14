@@ -11,13 +11,13 @@ vignette: >
 
 ## Easy loading for SP500 stocks data
 
-This package provides some function that allow the user to retrieve the opening, high, low, close and volume levels of the SP500 stocks. Levels can be loaded as a dataframe or, more importantly, as a time serie. 
+This package provides some functions that allow the user to retrieve the open, high, low, close and volume levels of the SP500 stocks. Levels can be loaded as a dataframe or, more importantly, as a time serie. 
 This package relies on the data provided on Kaggle : see https://www.kaggle.com/camnugent/sandp500
 
 ## Whole dataframe
 
 This package allows the user to load the whole dataframe. 'Date' variable has been defined as a Date object, using the 'lubridate' package 
-```{r whole}
+```{r whole, warning=FALSE}
 library(SP500R)
 whole_dataframe <- all_stocks()
 head(whole_dataframe)
@@ -26,7 +26,7 @@ head(whole_dataframe)
 ## Load a stock
 
 You can also load a single stock/value combination. The value to load should be specified using the var_type argument (default is 'Open').
-The stock name should be specified. Use /code{SP500_names()} to display all the stocks' names available.
+The stock name should be specified. Use <code>SP500_names()</code> to display all the stocks' names available.
 The user can provide starting and ending date, as 'lubridate' dates.
 
 ```{r one_df}
@@ -38,7 +38,7 @@ AAP_Volume
 ## Load a time serie
 
 Most useful function of this small package. Load a stock value as a time serie, with correct start, end date, and frequency.
-Same arguments /code{as one_stock.df}
+Same arguments as <code>one_stock.df</code>
 
 ```{r one_ts}
 start_date <- lubridate::ymd('2013-01-01')

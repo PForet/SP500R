@@ -76,19 +76,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="easy-loading-for-sp500-stocks-data" class="section level2">
 <h2>Easy loading for SP500 stocks data</h2>
-<p>This package provides some function that allow the user to retrieve the opening, high, low, close and volume levels of the SP500 stocks. Levels can be loaded as a dataframe or, more importantly, as a time serie. This package relies on the data provided on Kaggle : see <a href="https://www.kaggle.com/camnugent/sandp500" class="uri">https://www.kaggle.com/camnugent/sandp500</a></p>
+<p>This package provides some functions that allow the user to retrieve the open, high, low, close and volume levels of the SP500 stocks. Levels can be loaded as a dataframe or, more importantly, as a time serie. This package relies on the data provided on Kaggle : see <a href="https://www.kaggle.com/camnugent/sandp500" class="uri">https://www.kaggle.com/camnugent/sandp500</a></p>
 </div>
 <div id="whole-dataframe" class="section level2">
 <h2>Whole dataframe</h2>
 <p>This package allows the user to load the whole dataframe. ‘Date’ variable has been defined as a Date object, using the ‘lubridate’ package</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(SP500R)</code></pre></div>
-<pre><code>## Warning: replacing previous import 'dplyr::intersect' by
-## 'lubridate::intersect' when loading 'SP500R'</code></pre>
-<pre><code>## Warning: replacing previous import 'dplyr::union' by 'lubridate::union'
-## when loading 'SP500R'</code></pre>
-<pre><code>## Warning: replacing previous import 'dplyr::setdiff' by 'lubridate::setdiff'
-## when loading 'SP500R'</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">whole_dataframe &lt;-<span class="st"> </span><span class="kw">all_stocks</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(SP500R)
+whole_dataframe &lt;-<span class="st"> </span><span class="kw">all_stocks</span>()
 <span class="kw">head</span>(whole_dataframe)</code></pre></div>
 <pre><code>##         Date  Open  High   Low Close  Volume Name
 ## 1 2012-08-13 92.29 92.59 91.74 92.40 2075391  MMM
@@ -100,7 +94,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="load-a-stock" class="section level2">
 <h2>Load a stock</h2>
-<p>You can also load a single stock/value combination. The value to load should be specified using the var_type argument (default is ‘Open’). The stock name should be specified. Use /code{SP500_names()} to display all the stocks’ names available. The user can provide starting and ending date, as ‘lubridate’ dates.</p>
+<p>You can also load a single stock/value combination. The value to load should be specified using the var_type argument (default is ‘Open’). The stock name should be specified. Use <code>SP500_names()</code> to display all the stocks’ names available. The user can provide starting and ending date, as ‘lubridate’ dates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">start_date &lt;-<span class="st"> </span>lubridate::<span class="kw">ymd</span>(<span class="st">'2014-01-01'</span>)
 end_date &lt;-<span class="st"> </span>lubridate::<span class="kw">ymd</span>(<span class="st">'2014-01-10'</span>)
 AAP_Volume &lt;-<span class="st"> </span><span class="kw">one_stock.df</span>(<span class="st">'AAP'</span>, <span class="dt">var_type =</span> <span class="st">'Volume'</span>, <span class="dt">start =</span> start_date, <span class="dt">end =</span> end_date)
@@ -115,7 +109,7 @@ AAP_Volume</code></pre></div>
 </div>
 <div id="load-a-time-serie" class="section level2">
 <h2>Load a time serie</h2>
-<p>Most useful function of this small package. Load a stock value as a time serie, with correct start, end date, and frequency. Same arguments /code{as one_stock.df}</p>
+<p>Most useful function of this small package. Load a stock value as a time serie, with correct start, end date, and frequency. Same arguments as <code>one_stock.df</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">start_date &lt;-<span class="st"> </span>lubridate::<span class="kw">ymd</span>(<span class="st">'2013-01-01'</span>)
 AAP_Close &lt;-<span class="st"> </span><span class="kw">one_stock.ts</span>(<span class="st">'AAP'</span>, <span class="dt">var_type =</span> <span class="st">'Close'</span>, <span class="dt">start =</span> start_date)
 <span class="kw">plot</span>(AAP_Close)</code></pre></div>
