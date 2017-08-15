@@ -40,7 +40,7 @@ all_stocks <- function(){
 
 #' Return one stock's values
 #'
-#' Return one stock's value, as a dataframe. The user should provide the name of the stock, and possibly the variable, and a starting and ending date
+#' Return one stock's values, as a dataframe. The user should provide the name of the stock, and possibly the type of value, and a starting and ending date
 #'
 #' @param name String value, the name of the stock. Use SP500_names for possible names
 #' @param var_type String value, the name of the variabe to return, could be 'Open', 'Close', 'High', 'Low' or 'Volume'. Default is 'Open'
@@ -74,7 +74,7 @@ one_stock.df <- function(name, var_type='Open', start = NULL, end = NULL){
 
 #' Return one stock's values
 #'
-#' Return one stock's value, as a time serie. The user should provide the name of the stock, and possibly the variable, and a starting and ending date
+#' Return one stock's values, as a time serie. The user should provide the name of the stock, and possibly the type of value, and a starting and ending date
 #'
 #' @param name String value, the name of the stock. Use SP500_names for possible names
 #' @param var_type String value, the name of the variabe to return, could be 'Open', 'Close', 'High', 'Low' or 'Volume'. Default is 'Open'
@@ -98,6 +98,43 @@ one_stock.ts <- function(name, var_type='Open', start = NULL, end = NULL){
   ts(stock[var_type], frequency=252,
      start=c(current_year, 252 - n_days_to_next_year + 1))}
 
+#' Return one stock's values
+#'
+#' Return one stock's values and their lags, as a matrix .
+#' Usefull for auto-regressive model. The first element of each row will be the stock's value, and the other elements will be the lagged values (to regress over).
+#' The user should provide the name of the stock, the number of lags needed and possibly the type of value, and a starting and ending date
+#'
+#' @param name String value, the name of the stock. Use SP500_names for possible names
+#' @param var_type String value, the name of the variabe to return, could be 'Open', 'Close', 'High', 'Low' or 'Volume'. Default is 'Open'
+#' @param lags Integer value, the number of lags to include for each row. Default is zero.
+#' @param start Date value, the date when the serie should be started. The user should use package 'lubridate'
+#' @param end Date value, the date when the serie should be ended. The user should use package 'lubridate'
+#' @return This function returns the data as a time serie, with correct starting and ending time, and right frequency.
+#'
+#' @examples
+#' one_stock.mtx('TSS',lags=3)
+#' one_stock.mtx('RMD',lags=6,'High',start=lubridate::ymd('2014-01-01'), end=lubridate::ymd('2015-01-01'))
+#'
+#' @import dplyr
+#' @import magrittr
+#' @import lubridate
+#'
+#' @export
+one_stock.mtx <- function(name, var_type='Open', lags=0, start = NULL, end = NULL){
+  if(!is(lags,'numeric')) stop(paste('Lag must be a numeric, was provided',lags))
+  else if(lags %% 1 != 0) stop(paste('Lag must be an integer, was provided', lags))
+  # Create the matrix of the stock's prices and their lags
+  stock <- one_stock.df(name, var_type, start, end)
+  tmp <- sapply(1:(nrow(stock)-lags), function(t) stock[t:(t+lags), var_type])
+  # If we have lags=0, sapply will return an object with no dimention. We correct that:
+  if(lags==0) dim(tmp) <- c(1,nrow(stock)-lag)
+  # We transpose the matrix to respect R conventions on model's inputs
+  tmp <- t(tmp)
+  # Change the col and row names for more clarity
+  rownames(tmp) <- as.character(stock[1:(nrow(stock)-lags), 'Date'])
+  colnames(tmp) <- sapply(1:(lags+1) - 1,function(t){ifelse(t==0, "X_t", paste0('X_(t-',t ,")"))})
+  return(tmp)
+}
 
 # Return how many days are left before the next year. Useful for conversion to time serie
 days_to_next_year <- function(stock){

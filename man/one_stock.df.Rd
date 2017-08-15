@@ -19,7 +19,7 @@ one_stock.df(name, var_type = "Open", start = NULL, end = NULL)
 This function returns the data in a dataframe with 'Date' and 'var_type' columns.
 }
 \description{
-Return one stock's value, as a dataframe. The user should provide the name of the stock, and possibly the variable, and a starting and ending date
+Return one stock's values, as a dataframe. The user should provide the name of the stock, and possibly the type of value, and a starting and ending date
 }
 \examples{
 one_stock.df('TSS')

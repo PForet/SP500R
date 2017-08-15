@@ -7,4 +7,3 @@ export(one_stock.ts)
 import(dplyr)
 import(lubridate)
 import(magrittr)
-
